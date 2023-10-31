@@ -1,0 +1,45 @@
+#Metricbeat installation for RHEL 9
+
+---
+- name:  METRICBEAT INSTALLATION
+  hosts: all
+  become: true
+
+
+  tasks:
+  - name: add elasticsearch public signing key
+    rpm_key:
+     key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+
+
+# Add elasticsearch repo definitions
+
+
+  - name: Add elasticsearch repo definitions
+    yum_repository:
+     name: rhel-t-stage
+     description: “Repo for hosts in testing”
+     baseurl: https://artifacts.elastic.co/packages/8.x/yum
+     gpgcheck: yes
+     gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+     enabled: yes
+
+
+
+
+
+  - name: Install Metricbeat
+    yum:
+     name: metricbeat
+     update_cache: yes
+
+
+
+# Starting Metricbeat
+
+
+  - name: Starting Metricbeat
+    service:
+     name: metricbeat
+     state: started
