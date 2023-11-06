@@ -1,0 +1,20 @@
+#Installation of Jetpatch by running te script present on location /etc/ansible/script.sh
+
+##!/bin/bash
+#sudo cd /tmp
+#sudo mkdir jetpatch
+#sudo cd jetpatch
+#sudo wget "https://connector-deployment.s3.amazonaws.com/Connectors/Linux/vlink_installer_linux_x64_4.1.2.230_Release.bsx" -outfile vlink_installer_linux_x64_4.1.2.230_Release.bsx
+#sudo chmod +x vlink_installer_linux_x64_4.1.2.230_Release.bsx
+
+#sudo ./vlink_installer_linux_x64_4.1.2.230_Release.bsx
+
+
+
+---
+- name: JETPATCH  INSTALLATION
+  hosts: all
+  become: true
+  tasks:
+  - name: Shell script
+    script: /etc/ansible/script-jetpatch-linux.sh

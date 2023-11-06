@@ -1,0 +1,28 @@
+---
+- name: Installing metricbeat
+  hosts: all
+  become_method: runas
+  tasks:
+    - name: Create a download directory
+      win_file:
+        path: C:\WINDOWS\metricbeat_download  # Replace with your desired destination directory
+        state: directory
+    - name: Create a destination directory
+      win_file:
+        path: C:\WINDOWS\metricbeat   # Replace with your desired destination directory
+        state: directory
+    - name: Download the Metricbeat
+      win_get_url:
+        url: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-8.3.3-windows-x86_64.zip
+        dest: C:\WINDOWS\metricbeat_download
+    - name: unzip
+      win_unzip:
+        src: C:\WINDOWS\metricbeat_download\metricbeat-8.3.3-windows-x86_64.zip  
+        dest: C:\WINDOWS\metricbeat  # Replace with the path to your source ZIP file
+      become_method: runas
+    - name: Install Metricbeat
+      win_shell: C:\WINDOWS\metricbeat\metricbeat-8.3.3-windows-x86_64\install-service-metricbeat.ps1
+    - name: Start a service
+      win_service:
+       name: metricbeat
+       state: started

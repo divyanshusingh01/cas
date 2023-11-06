@@ -1,0 +1,8 @@
+
+---
+- name: qualys  INSTALLATION
+  hosts: all
+  become: true
+  tasks:
+  - name: Shell script
+    script: /etc/ansible/trendmicro.sh

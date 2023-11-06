@@ -1,0 +1,25 @@
+---
+- name: Install Filebeat
+  hosts: all
+  become: true
+  tasks:
+     - name: Download Filebeat
+       get_url:
+         url: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-8.3.3-linux-x86_64.tar.gz
+         dest: /home/casuser
+     - name: Extract Filebeat
+       unarchive:
+          src: /home/casuser/metricbeat-8.3.3-linux-x86_64.tar.gz 
+          dest: /home/casuser
+          remote_src: yes
+          
+         
+#     - name: Install Met src: /home/casuser/metricbeat-8.10.4-linux-x86_64/metricbeat.yml  
+     - name: Shell script
+       script: /etc/ansible/metricbeat-linux-script.sh
+
+       #     - name: Start a service                   
+       #  systemd:
+       #   name: metricbeat
+       #   state: started
+

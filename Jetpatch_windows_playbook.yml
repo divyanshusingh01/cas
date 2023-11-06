@@ -1,0 +1,29 @@
+#Installation of jetpatch on windows 2016
+
+---
+- name: Installing jetpatch
+  hosts: all
+  become_method: runas
+  tasks:
+    - name: Create a destination directory
+      win_file:
+        path: C:\WINDOWS\abc   # Replace with your desired destination directory
+        state: directory
+    - name: Download the Jetpatch installer
+      win_get_url:
+        url: https://connector-deployment.s3.amazonaws.com/Connectors/Windows/vlink-win-win32_x64-Release-4.1.2.230.exe
+        dest: C:\WINDOWS\abc
+
+       
+
+
+    - name: Execute the .exe file via PowerShell
+      win_shell: C:\Windows\abc\vlink-win-win32_x64-Release-4.1.2.230.exe
+      
+      # win_shell: |
+      #       Start-Process -FilePath 'C:\Windows\abc\vlink-win-win32_x64-Release-4.1.2.230.exe' 
+    - name: Start a service
+      win_service:
+       name: vAgentManager
+       state: started
+

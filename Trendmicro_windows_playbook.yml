@@ -1,0 +1,8 @@
+
+---
+- name: qualys  INSTALLATION
+  hosts: all
+  become_method: runas
+  tasks:
+  - name: Shell script
+    script: /etc/ansible/trendmicro.ps1

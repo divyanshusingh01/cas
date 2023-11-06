@@ -1,0 +1,23 @@
+---
+- name:  Qualys agent INSTALLATION
+  hosts: all
+  become: true
+  tasks:
+  - name: Copy Qualys Agent to Linux Servers
+    copy:
+      src: /home/casadmin/tmp/QualysCloudAgent.rpm
+      dest: /tmp/QualysCloudAgent.rpm
+      
+
+  - name: change file permission
+    file:    
+      path: /tmp/QualysCloudAgent.rpm
+      mode: '777'
+      remote_src: yes
+
+  - name: Install Qualys Agent
+    command: rpm -ivh /tmp/QualysCloudAgent.rpm
+   
+
+  - name: Shell script for Activate id and customer id
+    script: /etc/ansible/qualys_script.sh

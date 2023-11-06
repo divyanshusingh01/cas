@@ -1,0 +1,11 @@
+---
+- name:  Qualys agent INSTALLATION
+  hosts: all
+  become_method: runas
+  tasks:
+  - name: Copy Qualys Agent to Linux Servers
+    win_copy:
+         src: /home/casadmin/tmp/QualysCloudAgent.exe
+         dest: C:\tmp\
+  - name: Install Qualys Agent on AWS non-prod VMs                
+    win_command: 'C:\tmp\QualysCloudAgent.exe CustomerId={b6bf9493-268d-fc40-8025-1f31b9b12a75} ActivationId={aa214b54-eda2-4552-a129-b22a74f03bd9} WebServiceUri=https://qagpublic.qg2.apps.qualys.eu/CloudAgent/'
