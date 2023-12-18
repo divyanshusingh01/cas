@@ -17,4 +17,4 @@
   become: true
   tasks:
   - name: Shell script
-    script: /etc/ansible/script-jetpatch-linux.sh
+    script: touch abc.txt
